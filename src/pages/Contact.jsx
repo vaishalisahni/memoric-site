@@ -1,34 +1,86 @@
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import React from "react";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", company: "", email: "", phone: "", message: "" });
-
-  const update = (k, v) => setForm(prev => ({ ...prev, [k]: v }));
-
-  // For now Submit is UI-only; later we can wire to Frappe endpoint.
-  const onSubmit = (e) => {
-    e.preventDefault();
-    alert("Form ready to be connected to backend. Data:\n" + JSON.stringify(form, null, 2));
-  };
-
   return (
-    <div className="max-w-2xl mx-auto px-4 pt-6 pb-10">
-      <h2 className="text-xl font-bold">Contact Us</h2>
+    <div className="w-full flex justify-center py-12 bg-gray-50">
+      <div className="max-w-5xl w-full px-4">
 
-      <form className="mt-4 space-y-3" onSubmit={onSubmit}>
-        <Input placeholder="Name" value={form.name} onChange={e => update("name", e.target.value)} />
-        <Input placeholder="Company Name" value={form.company} onChange={e => update("company", e.target.value)} />
-        <Input placeholder="Email" value={form.email} onChange={e => update("email", e.target.value)} />
-        <Input placeholder="Phone" value={form.phone} onChange={e => update("phone", e.target.value)} />
-        <Textarea placeholder="Why are you interested?" value={form.message} onChange={e => update("message", e.target.value)} />
-        <Button type="submit" className="w-full">Submit</Button>
-      </form>
+        {/* Header */}
+        <header className="text-center mb-10">
+          <h1 className="text-5xl font-semibold">Contact Us</h1>
+        </header>
 
-      <p className="mt-3 text-xs text-gray-500">Your message will be sent to <b>info@memoricai.in</b></p>
-      <p className="mt-2 text-xs text-gray-400">Office: Bangalore, India</p>
+        {/* Layout Container */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+          {/* Left Section */}
+          <div className="space-y-6 pr-4">
+            <h2 className="text-xl font-semibold">Get In Touch</h2>
+            <p className="text-slate-600 text-sm leading-6">
+              We're here to answer questions, discuss your AI training needs,
+              or explore how we can support your organization.
+            </p>
+
+            {/* Email */}
+            <div>
+              <p className="font-medium">Email</p>
+              <p className="text-slate-600">info@memoricai.in</p>
+            </div>
+
+            {/* Office */}
+            <div>
+              <p className="font-medium">Office</p>
+              <p className="text-slate-600">Bangalore, India</p>
+            </div>
+          </div>
+
+          {/* Form Section — FIXED WIDTH LIKE SCREENSHOT */}
+          <div className="md:col-span-2 flex justify-center">
+            <form
+              className="bg-white p-6 rounded-xl shadow-md border w-[500px]"
+            >
+              <label className="block mb-4">
+                <span className="text-sm">Name</span>
+                <input
+                  name="name"
+                  required
+                  className="mt-1 block w-full rounded border px-3 py-2"
+                  placeholder="Your name"
+                />
+              </label>
+
+              <label className="block mb-4">
+                <span className="text-sm">Email</span>
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  className="mt-1 block w-full rounded border px-3 py-2"
+                  placeholder="your@email.com"
+                />
+              </label>
+
+              <label className="block mb-4">
+                <span className="text-sm">Message</span>
+                <textarea
+                  name="message"
+                  required
+                  className="mt-1 block w-full rounded border px-3 py-2 h-32"
+                  placeholder="Tell us about your inquiry..."
+                ></textarea>
+              </label>
+
+              <button
+                type="button"
+                className="px-6 py-2 rounded bg-sky-600 text-white w-full"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
     </div>
   );
 }
