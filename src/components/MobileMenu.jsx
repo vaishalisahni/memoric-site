@@ -33,3 +33,4 @@ const MobileMenu = ({ isOpen, onClose }) => {
     </div>
   );
 };
+export default MobileMenu;
