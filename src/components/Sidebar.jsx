@@ -1,6 +1,6 @@
-import React from 'react'
-import { X } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Sidebar({ setOpen }) {
   return (
@@ -9,20 +9,29 @@ export default function Sidebar({ setOpen }) {
       onClick={() => setOpen(false)}
     >
       <div
-        className="fixed left-0 top-0 w-64 h-full bg-white p-4"
+        className="fixed left-0 top-0 w-64 h-full bg-white p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="p-2 mb-4" onClick={() => setOpen(false)}>
-          <X />
-        </button>
+        <div className="flex items-center justify-between mb-6">
+          <span className="text-lg font-bold">Memoric AI</span>
+          <Button variant="ghost" onClick={() => setOpen(false)}>
+            <X className="w-5 h-5" />
+          </Button>
+        </div>
 
         <nav className="flex flex-col gap-3">
-          <Link to="/" onClick={() => setOpen(false)}>Home</Link>
-          <Link to="/courses" onClick={() => setOpen(false)}>Courses</Link>
-          <Link to="/about" onClick={() => setOpen(false)}>About</Link>
-          <Link to="/contact" onClick={() => setOpen(false)}>Contact</Link>
+          {["Home", "Courses", "About", "Contact"].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="block px-4 py-2 rounded hover:bg-slate-100 font-medium transition-colors"
+              onClick={() => setOpen(false)}
+            >
+              {item}
+            </a>
+          ))}
         </nav>
       </div>
     </div>
-  )
+  );
 }

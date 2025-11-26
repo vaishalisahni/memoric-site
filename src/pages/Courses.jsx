@@ -1,42 +1,73 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
-function CourseCard({title, desc, bullets}) {
+const API_URL = import.meta.env.VITE_COURSE_API_URL;
+const API_TOKEN = import.meta.env.VITE_COURSE_API_TOKEN;
+
+export default function Courses() {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch(API_URL, {
+          headers: {
+            Authorization: `token ${API_TOKEN}`,
+          },
+        });
+        const data = await res.json();
+        setCourses(data.data);
+      } catch (err) {
+        console.error("Error fetching courses:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCourses();
+  }, []);
+
+  if (loading)
+    return (
+      <div className="text-center py-10 text-slate-500">
+        Loading courses...
+      </div>
+    );
+
   return (
-    <div className="bg-white p-6 rounded-lg shadow border">
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-sm text-slate-600 mb-4">{desc}</p>
-      <ul className="list-disc list-inside text-sm text-slate-600 mb-4">
-        {bullets.map((b,i)=> <li key={i}>{b}</li>)}
-      </ul>
-      <button className="w-full py-2 rounded bg-sky-600 text-white">Enroll Now</button>
-    </div>
-  )
-}
-
-export default function Courses(){
-  const courses = [
-    {
-      title: 'Online: Intro to AI',
-      desc: 'A comprehensive introduction to AI concepts and ethics.',
-      bullets: ['8-week structured program','Live sessions','Real-case studies']
-    },
-    {
-      title: 'Offline: Business Hands-On Training',
-      desc: 'In-person workshops focused on implementing AI solutions.',
-      bullets: ['3-day immersive workshop','Custom solutions','Hands-on support']
-    }
-  ]
-
-  return (
-    <div className="container mx-auto max-w-4xl">
-      <header className="text-center py-8">
-        <h1 className="text-3xl font-semibold">Our Courses</h1>
-        <p className="text-sm text-slate-500">Practical training designed for teams and leaders who want to understand and apply AI effectively.</p>
-      </header>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {courses.map((c,i)=><CourseCard key={i} {...c} />)}
+    <div className="container mx-auto max-w-6xl py-12">
+      <h1 className="text-4xl md:text-5xl font-bold text-center mb-12 text-slate-900">
+        Our Courses
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {courses.map((course) => (
+          <Card
+            key={course.name}
+            className="p-6 flex flex-col justify-between shadow-lg hover:shadow-xl transition-shadow duration-300"
+          >
+            <div>
+              <h3 className="text-2xl font-semibold mb-2 text-slate-900">
+                {course.title}
+              </h3>
+              <p className="text-sm text-slate-600 mb-4">
+                {course.short_introduction}
+              </p>
+              {course.category && (
+                <Badge className="bg-sky-100 text-sky-800 mb-4">
+                  {course.category}
+                </Badge>
+              )}
+            </div>
+            <Button className="mt-4 w-full bg-sky-600 hover:bg-sky-700">
+              {course.paid_course
+                ? `Enroll ($${course.course_price})`
+                : "Enroll Now"}
+            </Button>
+          </Card>
+        ))}
       </div>
     </div>
-  )
+  );
 }

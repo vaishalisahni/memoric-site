@@ -1,29 +1,39 @@
-import React from 'react'
-import { Menu } from 'lucide-react'
-// import MobileMenu from './MobileMenu'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Navbar({ setSidebarOpen }) {
   return (
-    <header className="bg-white border-b">
+    <header className="bg-white border-b sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 md:px-8 flex items-center justify-between h-16">
         <div className="flex items-center gap-4">
-          <button className="md:hidden p-2 rounded" onClick={() => setSidebarOpen(s => !s)} aria-label="Open menu">
-            <Menu />
-          </button>
+          <Button
+            variant="ghost"
+            className="md:hidden p-2"
+            onClick={() => setSidebarOpen((s) => !s)}
+          >
+            <Menu className="w-5 h-5" />
+          </Button>
 
-          <Link to="/" className="hidden md:flex items-center gap-3">
-            <div className="text-lg font-semibold">Memoric AI</div>
-          </Link>
+          <a href="#home" className="hidden md:flex items-center gap-2">
+            <span className="text-lg font-bold">Memoric AI</span>
+          </a>
         </div>
 
         <nav className="hidden md:flex items-center gap-4">
-          <Link to="/courses" className="text-sm hover:text-slate-700">Courses</Link>
-          <Link to="/about" className="text-sm hover:text-slate-700">About</Link>
-          <Link to="/contact" className="text-sm hover:text-slate-700">Contact</Link>
-          <a className="ml-4 inline-block px-3 py-1 rounded bg-sky-600 text-white text-sm">Login</a>
+          {["Home", "Courses", "About", "Contact"].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="text-sm hover:text-slate-700 font-medium transition-colors"
+            >
+              {item}
+            </a>
+          ))}
+
+          <Button className="ml-4">Login</Button>
         </nav>
       </div>
     </header>
-  )
+  );
 }

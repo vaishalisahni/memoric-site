@@ -1,32 +1,34 @@
-import React, { useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import Sidebar from './components/Sidebar'
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import Courses from './pages/Courses'
-import Contact from './pages/Contact'
-import About from './pages/About'
+import React, { useState, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
+import Sections from "./pages/Sections";
 
 export default function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+
+  // Scroll to section if URL has a hash
+  useEffect(() => {
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [location]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
-      {/* Navbar */}
       <Navbar setSidebarOpen={setSidebarOpen} />
-
-      {/* Mobile Sidebar */}
       {sidebarOpen && <Sidebar setOpen={setSidebarOpen} />}
 
-      {/* Main content */}
       <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+        {/* All sections always rendered */}
+        <Sections />
       </main>
     </div>
-  )
+  );
 }
