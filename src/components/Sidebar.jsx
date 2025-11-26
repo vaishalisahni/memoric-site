@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 export default function Sidebar({ setOpen }) {
   return (
     <div
-      className="fixed inset-0 z-50 bg-black bg-opacity-50 md:hidden"
+      className="fixed inset-0 z-50 md:hidden backdrop-blur-sm" // Added blur
       onClick={() => setOpen(false)}
     >
       <div
