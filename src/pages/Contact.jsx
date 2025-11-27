@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { Mail, MapPin, Send } from "lucide-react";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -39,7 +39,7 @@ export default function Contact() {
             Let's Start a Conversation
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Have questions about AI training or consulting? We're here to help you find the right solution.
+            We're here to answer questions, discuss your AI training needs, or explore how we can support your organization.
           </p>
         </div>
 
@@ -54,10 +54,7 @@ export default function Contact() {
                   <Mail className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-1">Email Us</h3>
-                  <p className="text-sm text-slate-600 mb-2">
-                    Send us an email anytime
-                  </p>
+                  <h3 className="font-bold text-slate-900 mb-1">Email</h3>
                   <a href="mailto:info@memoricai.in" className="text-sm font-semibold text-slate-900 hover:underline">
                     info@memoricai.in
                   </a>
@@ -71,29 +68,9 @@ export default function Contact() {
                   <MapPin className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-1">Visit Office</h3>
-                  <p className="text-sm text-slate-600 mb-2">
-                    Come say hello
-                  </p>
+                  <h3 className="font-bold text-slate-900 mb-1">Office</h3>
                   <p className="text-sm font-semibold text-slate-900">
                     Bangalore, India
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-6 border-2 border-slate-100 hover:border-slate-900 transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-slate-900 mb-1">Call Us</h3>
-                  <p className="text-sm text-slate-600 mb-2">
-                    Mon-Fri from 9am to 6pm
-                  </p>
-                  <p className="text-sm font-semibold text-slate-900">
-                    +91 (xxx) xxx-xxxx
                   </p>
                 </div>
               </div>
