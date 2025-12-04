@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Sections from "./pages/Sections";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -26,11 +27,14 @@ export default function App() {
       <Navbar setSidebarOpen={setSidebarOpen} />
       {sidebarOpen && <Sidebar setOpen={setSidebarOpen} />}
 
-      <main className="flex-1">
+      <main className="flex-1 relative">
         <Sections />
       </main>
 
       <Footer />
+
+      {/* Toast notifications */}
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 }

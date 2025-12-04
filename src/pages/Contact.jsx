@@ -5,20 +5,29 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Mail, MapPin, Send } from "lucide-react";
+import toast from 'react-hot-toast';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
-    company: '',
     message: ''
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validate required fields
+    if (!formData.firstName || !formData.email || !formData.message) {
+      toast.error("Please fill all required fields!");
+      return;
+    }
+
+    // Form is valid
     console.log('Form submitted:', formData);
-    // Add your form submission logic here
+    toast.success("Message sent successfully!");
+    setFormData({ firstName: '', lastName: '', email: '', message: '' }); // reset form
   };
 
   const handleChange = (e) => {
@@ -47,7 +56,6 @@ export default function Contact() {
 
           {/* Contact Info Cards - Left Side */}
           <div className="lg:col-span-2 space-y-6">
-            
             <Card className="p-6 border-2 border-slate-100 hover:border-slate-900 transition-all duration-300">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -75,18 +83,17 @@ export default function Contact() {
                 </div>
               </div>
             </Card>
-
           </div>
 
           {/* Contact Form - Right Side */}
           <div className="lg:col-span-3">
             <Card className="p-8 border-2 border-slate-100 shadow-lg">
               <div className="space-y-6">
-                
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-slate-900 mb-2">
-                      First Name
+                      First Name <span className="text-red-500">*</span>
                     </label>
                     <Input 
                       name="firstName" 
@@ -96,7 +103,7 @@ export default function Contact() {
                       className="h-12 border-slate-200 focus:border-slate-900"
                     />
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-semibold text-slate-900 mb-2">
                       Last Name
@@ -113,7 +120,7 @@ export default function Contact() {
 
                 <div>
                   <label className="block text-sm font-semibold text-slate-900 mb-2">
-                    Email Address
+                    Email Address <span className="text-red-500">*</span>
                   </label>
                   <Input 
                     name="email" 
@@ -127,7 +134,7 @@ export default function Contact() {
 
                 <div>
                   <label className="block text-sm font-semibold text-slate-900 mb-2">
-                    Message
+                    Message <span className="text-red-500">*</span>
                   </label>
                   <Textarea 
                     name="message" 
