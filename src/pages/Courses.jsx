@@ -83,6 +83,13 @@ export default function Courses() {
       </div>
     );
 
+  const filteredCourses = courses.filter(
+    (course) => course.published === 1 && course.custom_is_business_course === 0
+  );
+  const filteredBatches = batches.filter(
+    (batch) => batch.published === 1 && batch.custom_is_business_batch === 0
+  );
+
   return (
     <div className="w-full bg-slate-50 py-20">
       <div className="container mx-auto max-w-6xl px-6">
@@ -99,10 +106,9 @@ export default function Courses() {
         </div>
 
         {/* Courses Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {courses
-            .filter((course) => course.published === 1)
-            .map((course) => (
+        {filteredCourses.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+            {filteredCourses.map((course) => (
               <Card
                 key={course.name}
                 className="p-0 flex flex-col border-2 border-slate-100 hover:border-slate-900 hover:shadow-xl transition-all duration-300 bg-white overflow-hidden h-full"
@@ -132,11 +138,9 @@ export default function Courses() {
                   <div className="flex-grow">
 
                     {/* ⭐ Category */}
-                    {course.category && (
-                      <Badge className="mb-3 bg-slate-100 text-slate-900 hover:bg-slate-200 font-medium">
-                        {course.category}
-                      </Badge>
-                    )}
+                    <Badge className="mb-3 bg-slate-100 text-slate-900 hover:bg-slate-200 font-medium">
+                      {course.category || "\u00A0"}
+                    </Badge>
 
                     <h3 className="text-xl font-bold mb-3 text-slate-900 line-clamp-2">
                       {course.title}
@@ -159,17 +163,16 @@ export default function Courses() {
                       </span>
                     )}
 
-                    {course.enable_certification === 1 && (
-                      <span className="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700 border border-green-300">
-                        Certificate
-                      </span>
-                    )}
-
-                    {course.paid_certificate === 1 && (
+                    {course.paid_certificate === 1 ? (
                       <span className="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-700 border border-yellow-300">
                         Paid Certificate
                       </span>
-                    )}
+                    ) : course.enable_certification === 1 ? (
+                      <span className="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700 border border-green-300">
+                        Certificate
+                      </span>
+                    ) : null}
+
                   </div>
 
                   <a
@@ -184,7 +187,12 @@ export default function Courses() {
                 </div>
               </Card>
             ))}
-        </div>
+          </div>
+        ) : (
+          <div className="text-center py-10 text-slate-500 mb-20">
+            No courses available at the moment.
+          </div>
+        )}
 
         {/* BATCHES SECTION */}
         <div className="text-center mb-12">
@@ -198,10 +206,9 @@ export default function Courses() {
         </div>
 
         {/* Batches Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {batches
-            .filter((batch) => batch.published === 1)
-            .map((batch) => (
+        {filteredBatches.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredBatches.map((batch) => (
               <Card
                 key={batch.name}
                 className="p-6 flex flex-col border-2 border-slate-100 hover:border-slate-900 hover:shadow-xl transition-all duration-300 bg-white h-full"
@@ -252,7 +259,7 @@ export default function Courses() {
                 </div>
 
                 {/* Price Badge */}
-                <div className="mb-4">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {batch.paid_batch ? (
                     <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-700 border border-purple-300">
                       {(() => {
@@ -271,6 +278,13 @@ export default function Courses() {
                       Free
                     </span>
                   )}
+
+                  {batch.certification === 1 && (
+                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700 border border-green-300">
+                      Certificate
+                    </span>
+                  )}
+
                 </div>
 
                 <a
@@ -284,7 +298,12 @@ export default function Courses() {
                 </a>
               </Card>
             ))}
-        </div>
+          </div>
+        ) : (
+          <div className="text-center py-10 text-slate-500">
+            No upcoming batches at the moment.
+          </div>
+        )}
 
       </div>
     </div>
