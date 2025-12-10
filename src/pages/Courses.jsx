@@ -279,7 +279,7 @@ export default function Courses() {
                 </div>
 
                 {/* Price Badge */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-2">
                   {batch.paid_batch ? (
                     <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-700 border border-purple-300">
                       {(() => {
