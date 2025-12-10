@@ -305,7 +305,7 @@ export default function Courses() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-6">
+                    <Button className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-6 cursor-pointer">
                       Join Batch
                     </Button>
                   </a>
